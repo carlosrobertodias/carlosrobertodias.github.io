@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Escola Municipal de Praia Grande — Carlos Roberto Dias</title>
+  <meta name="description" content="" />
+  <link rel="icon" href="favicon.ico" />
+
+  <style>
+    :root{
+      --bg: #0b0f15;          /* fundo */
+      --panel: #0f1722;       /* painéis */
+      --text: #e6eef8;        /* texto */
+      --muted: #a8b3c7;       /* texto secundário */
+      --brand: #4f46e5;       /* cor principal */
+      --brand-2: #22d3ee;     /* cor de destaque */
+      --card: #0c1320cc;      /* card glass */
+      --border: #1f2a3a;      /* borda */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    .light{
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --text: #0e1621;
+      --muted: #475569;
+      --brand: #4338ca;
+      --brand-2: #0891b2;
+      --card: #fffffff0;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(2,8,23,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background: radial-gradient(1200px 600px at 10% -10%, rgba(79,70,229,.15), transparent 60%),
+                                radial-gradient(900px 400px at 100% 0%, rgba(34,211,238,.12), transparent 60%),
+                                var(--bg);
+      color:var(--text);
+      font: 500 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:20;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(11,15,21,.75), rgba(11,15,21,.35));
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex;align-items:center;gap:16px;justify-content:space-between;
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;color:white;font-weight:800;box-shadow:var(--shadow)}
+    .title{font-size:18px;font-weight:800;letter-spacing:.2px}
+    .subtitle{font-size:12px;color:var(--muted);margin-top:-6px}
+
+    .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .input, .select{
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 12px; border-radius: 12px; outline: none;
+      transition: .2s border, .2s box-shadow;
+    }
+    .input:focus, .select:focus{border-color: var(--brand); box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand) 20%, transparent)}
+    .btn{
+      padding: 10px 14px; border-radius: 12px; border:1px solid var(--border);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 94%, white 6%), var(--panel));
+      color:var(--text); cursor:pointer; font-weight:700;
+      transition: .2s transform, .2s background, .2s border;
+    }
+    .btn:hover{transform: translateY(-1px); border-color:color-mix(in oklab, var(--brand) 30%, var(--border))}
+    .btn.primary{background: linear-gradient(135deg, var(--brand), var(--brand-2)); border: none; color:white}
+
+    /* Grid */
+    .grid{display:grid;grid-template-columns:repeat(1, minmax(0,1fr));gap:16px;margin-top:18px}
+    @media(min-width:640px){.grid{grid-template-columns:repeat(2, minmax(0,1fr));}}
+    @media(min-width:1024px){.grid{grid-template-columns:repeat(3, minmax(0,1fr));}}
+
+    .card{
+      position:relative;overflow:hidden;border:1px solid var(--border);border-radius:var(--radius);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--card) 86%, transparent), var(--card));
+      box-shadow: var(--shadow);
+      transition:.2s transform, .2s border;
+    }
+    .card:hover{transform:translateY(-2px); border-color: color-mix(in oklab, var(--brand) 30%, var(--border));}
+    .card .cover{height:110px;background:radial-gradient(600px 250px at 0% 0%, color-mix(in oklab, var(--brand) 25%, transparent), transparent),
+                                radial-gradient(700px 280px at 100% 0%, color-mix(in oklab, var(--brand-2) 25%, transparent), transparent)}
+    .card .body{padding:16px 16px 18px}
+    .avatar{width:76px;height:76px;border-radius:20px;border:3px solid var(--panel);box-shadow: var(--shadow);
+      background:#111;position:absolute;top:60px;left:16px;object-fit:cover}
+    .name{font-weight:900;font-size:18px;letter-spacing:.2px;margin-top:22px}
+    .role{color:var(--muted);font-size:13px;margin-top:-6px}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+    .tag{font-size:12px;border:1px solid var(--border);padding:6px 8px;border-radius:999px;color:var(--muted)}
+    .actions{display:flex;gap:8px}
+    .iconbtn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;border-radius:12px;border:1px solid var(--border);background:var(--panel);cursor:pointer}
+    .iconbtn:hover{border-color: color-mix(in oklab, var(--brand) 30%, var(--border))}
+    .icon{width:18px;height:18px;opacity:.9}
+
+    /* Modal */
+    dialog{border:none;padding:0;border-radius:20px;overflow:hidden;max-width:560px;width:90vw;background:var(--panel);color:var(--text);box-shadow:var(--shadow)}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border)}
+    .modal-body{padding:18px}
+    .modal-footer{display:flex;justify-content:flex-end;gap:10px;padding:14px 18px;border-top:1px solid var(--border)}
+
+    footer{border-top:1px solid var(--border);margin-top:24px}
+    footer .container{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">CRD</div>
+        <div>
+          <div class="title">Escola Municipal de Praia Grande — Carlos Roberto Dias</div>
+          <div class="subtitle"></div>
+        </div>
+      </div>
+      <div class="controls">
+        <input id="search" class="input" placeholder="Buscar por nome…" />
+        <select id="filter" class="select">
+          <option value="">Todas as turmas/funções</option>
+        </select>
+        <button id="toggleTheme" class="btn" aria-label="Alternar tema">🌙/☀️</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="stats" class="muted" style="margin-top:10px"></div>
+    <div id="grid" class="grid" aria-live="polite"></div>
+  </main>
+
+  <footer>
+    <div class="container muted">
+      <div>© <span id="year"></span> CRD</div>
+      <div>
+        <a class="muted" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'})">Voltar ao topo ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal de Perfil -->
+  <dialog id="profileModal">
+    <div class="modal-header">
+      <strong id="modalName"></strong>
+      <button id="closeModal" class="btn">Fechar</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap">
+        <img id="modalAvatar" alt="Avatar" width="84" height="84" style="border-radius:18px;border:3px solid var(--border);object-fit:cover" />
+        <div style="flex:1; min-width:220px">
+          <div class="muted" id="modalRole"></div>
+          <p id="modalBio" style="margin:10px 0 0"></p>
+          <div class="tags" id="modalTags"></div>
+        </div>
+      </div>
+      <div class="actions" id="modalLinks" style="margin-top:14px"></div>
+    </div>
+    <div class="modal-footer">
+      <button id="copyLink" class="btn">Copiar link do perfil</button>
+      <a id="openCard" class="btn primary" target="_blank" rel="noopener">Abrir card</a>
+    </div>
+  </dialog>
+
+  <!-- Dados (edite aqui) -->
+  <script id="data">
+    const INTEGRANTES = [
+      {
+        id: 'pedro',
+        nome: 'pedro do grau',
+        funcao: 'palmeirense',
+        avatar: 'https://imgur.com/h78zxEI.png',
+        bio: 'respeita meu palmeiras',
+        tags: ['futebol', 'palmeirense'],
+        links: {
+          instagram: '',
+          whatsapp: ''
+        }
+      },
+      {
+        id: 'caua',
+        nome: 'caua',
+        funcao: 'aluno de merda',
+        avatar: 'https://imgur.com/1HgQw9p.png',
+        bio: 'oi',
+        tags: ['viado de merda', 'boiolao'],
+        links: {
+          site: '', instagram: '', whatsapp: ''
+        }
+      },
+{
+        id: 'gustavao',
+        nome: 'gustavao',
+        funcao: 'primo do pedro',
+        avatar: 'https://imgur.com/fmzYglY.png',
+        bio: 'oi',
+        tags: ['viado de merda', 'primo gay'],
+        links: {
+          site: '', instagram: '', whatsapp: ''
+        }
+      }
+    ];
+  </script>
+
+  <!-- App -->
+  <script>
+    // Persistência de tema
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('crd-theme') || 'dark';
+    if(savedTheme === 'light') root.classList.add('light');
+
+    const $ = (q) => document.querySelector(q);
+    const $$ = (q) => Array.from(document.querySelectorAll(q));
+
+    const grid = $('#grid');
+    const search = $('#search');
+    const filter = $('#filter');
+    const stats = $('#stats');
+    const year = $('#year');
+
+    year.textContent = new Date().getFullYear();
+
+    // Popular filtros pela função/turma
+    const funcoes = Array.from(new Set(INTEGRANTES.map(p => p.funcao)));
+    funcoes.sort((a,b)=>a.localeCompare(b,'pt-BR'));
+    funcoes.forEach(f => {
+      const opt = document.createElement('option');
+      opt.value = f; opt.textContent = f; filter.appendChild(opt);
+    });
+
+    function linkIcon(name){
+      // emojis leves pra não depender de libs
+      const map = { site:'🌐', instagram:'📷', whatsapp:'💬' };
+      return map[name] || '🔗';
+    }
+
+    function createCard(p){
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="cover"></div>
+        <img class="avatar" src="${p.avatar}" alt="${p.nome}" loading="lazy" />
+        <div class="body">
+          <div class="name">${p.nome}</div>
+          <div class="role">${p.funcao}</div>
+          <div class="tags">${(p.tags||[]).map(t=>`<span class='tag'>${t}</span>`).join('')}</div>
+          <div class="actions">
+            <button class="iconbtn" data-open="${p.id}">🔍 Ver perfil</button>
+            ${(p.links?.site||p.links?.instagram||p.links?.whatsapp) ? `<a class="iconbtn" href="${p.links.site||p.links.instagram||p.links.whatsapp}" target="_blank" rel="noopener">${linkIcon(p.links.site? 'site' : (p.links.instagram? 'instagram':'whatsapp'))} Abrir link</a>` : `<button class="iconbtn" disabled style="opacity:.6">— Sem link</button>`}
+          </div>
+        </div>`;
+      return card;
+    }
+
+    function render(){
+      const q = (search.value||'').toLowerCase().trim();
+      const f = filter.value;
+      const list = INTEGRANTES.filter(p => {
+        const okSearch = !q || p.nome.toLowerCase().includes(q) || (p.bio||'').toLowerCase().includes(q) || (p.tags||[]).join(' ').toLowerCase().includes(q);
+        const okFilter = !f || p.funcao === f;
+        return okSearch && okFilter;
+      });
+
+      grid.innerHTML = '';
+      list.forEach(p => grid.appendChild(createCard(p)));
+      stats.textContent = `${list.length} de ${INTEGRANTES.length} integrante(s) mostrado(s)`;
+
+      // Eventos para botões "Ver perfil"
+      $$("[data-open]").forEach(btn => btn.onclick = () => openModal(btn.getAttribute('data-open')));
+    }
+
+    search.addEventListener('input', render);
+    filter.addEventListener('change', render);
+
+    // Modal
+    const modal = document.getElementById('profileModal');
+    const modalName = document.getElementById('modalName');
+    const modalRole = document.getElementById('modalRole');
+    const modalBio = document.getElementById('modalBio');
+    const modalAvatar = document.getElementById('modalAvatar');
+    const modalTags = document.getElementById('modalTags');
+    const modalLinks = document.getElementById('modalLinks');
+    const closeModal = document.getElementById('closeModal');
+    const copyLink = document.getElementById('copyLink');
+    const openCard = document.getElementById('openCard');
+
+    function openModal(id){
+      const p = INTEGRANTES.find(x => x.id === id);
+      if(!p) return;
+      modalName.textContent = p.nome;
+      modalRole.textContent = p.funcao;
+      modalBio.textContent = p.bio || '';
+      modalAvatar.src = p.avatar;
+      modalTags.innerHTML = (p.tags||[]).map(t=>`<span class='tag'>${t}</span>`).join('');
+      modalLinks.innerHTML = '';
+      for(const [k,v] of Object.entries(p.links||{})){
+        if(v){
+          const a = document.createElement('a');
+          a.className = 'iconbtn'; a.target = '_blank'; a.rel = 'noopener'; a.href = v;
+          a.textContent = `${linkIcon(k)} ${k}`;
+          modalLinks.appendChild(a);
+        }
+      }
+      // link direto: #/id
+      const url = new URL(window.location.href);
+      url.hash = `#/${p.id}`;
+      openCard.href = url.toString();
+      copyLink.onclick = async () => {
+        try { await navigator.clipboard.writeText(url.toString()); copyLink.textContent = 'Copiado!'; setTimeout(()=>copyLink.textContent='Copiar link do perfil', 1500);} catch(e){ alert(url.toString()); }
+      }
+      modal.showModal();
+    }
+    closeModal.onclick = () => modal.close();
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) modal.close(); });
+
+    // Deep-link por hash
+    window.addEventListener('hashchange', () => {
+      const m = location.hash.match(/^#\/(.+)$/);
+      if(m){ openModal(m[1]); }
+    });
+
+    // Tema
+    document.getElementById('toggleTheme').onclick = () => {
+      root.classList.toggle('light');
+      const mode = root.classList.contains('light') ? 'light' : 'dark';
+      localStorage.setItem('crd-theme', mode);
+    };
+
+    // Primeira renderização
+    render();
+    // Se abrir com link do perfil já no hash
+    if(location.hash.startsWith('#/')){
+      const id = location.hash.slice(2);
+      setTimeout(()=>openModal(id), 200);
+    }
+  </script>
+</body>
+</html>
